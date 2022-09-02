@@ -1,25 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import styled from "styled-components";
+import GlobalStyles from "./GlobalStyles";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Homepage from "./Homepage";
+import Investment from "./Investments";
+import Savings from "./Savings";
+import Header from "./Header";
+import Footer from "./Footer";
+import { useEffect } from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+//testt
+
+const App = () => {
+  
+// useEffect(() => {
+//   fetch("/hello")
+//     .then((res) => res.json())
+//     .then((data) => console.log(data))
+// }, []) 
+  return(
+    <Router>
+      <GlobalStyles />
+        <MainDiv>
+          <Header />
+            <Switch>
+
+              <Route exact path="/">
+                <Homepage/>
+              </Route>
+
+              <Route exact path="/savings">
+                <Savings />
+              </Route>
+
+              <Route exact path="/investment">
+                <Investment />
+              </Route>
+
+            </Switch>
+            <Footer />
+        </MainDiv>
+      </Router>
+  )
 }
 
+const MainDiv = styled.div`
+`
 export default App;
