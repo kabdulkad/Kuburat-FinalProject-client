@@ -8,15 +8,11 @@ import Header from "./Header";
 import Footer from "./Footer";
 import { useEffect } from "react";
 
-//testt
+//test3
 
 const App = () => {
   
-// useEffect(() => {
-//   fetch("/hello")
-//     .then((res) => res.json())
-//     .then((data) => console.log(data))
-// }, []) 
+
   return(
     <Router>
       <GlobalStyles />
@@ -44,5 +40,7 @@ const App = () => {
 }
 
 const MainDiv = styled.div`
+background-color:#e4ddec ;
+font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
 `
 export default App;

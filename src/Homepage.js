@@ -8,7 +8,7 @@ ChartJS.register(ArcElement, Tooltip, Legend );
 
 const Homepage = () => {
 
-const {guestData, setGuestData, dbInfo, setDbInfo, category, setCategory, amount,setAmount, home , setHome , tuition, setTuition , travels, setTravels , emergencyFund , setEmergencyFund , transportation , setTransportation, contentBox, setContentBox} = useContext(CurrentSavingsContext)
+const {guestData, setGuestData, dbInfo, setDbInfo, category, setCategory, amount,setAmount, contentBox, setContentBox} = useContext(CurrentSavingsContext)
 
         
         let savingsChart = {
@@ -20,18 +20,18 @@ const {guestData, setGuestData, dbInfo, setDbInfo, category, setCategory, amount
                     data: [guestData.Home, guestData.EmergencyFund,guestData.Tuition,guestData.Travels, guestData.Transportation ],
     
                     backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(64,224,208,0.5)',
+                        'rgba(224, 15, 118, 0.5)',
+                        'rgba(221, 39, 245, 0.5)',
+                        'rgba(255,140,0,0.5)',
+                        'rgba(255,105,180,0.5)',
                     ],
                     borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
+                    'rgba(64,224,208,1)',
+                    'rgba(224, 15, 118, 0.6)',
+                    'rgba(221, 39, 245, 1)',
+                    'rgba(255,140,0,1)',
+                    'rgba(255,105,180,1)',
             
                     ],
                     borderWidth: 1,
@@ -62,7 +62,7 @@ const {guestData, setGuestData, dbInfo, setDbInfo, category, setCategory, amount
     }
 //resetting data on click
     const resetData = () => {
-        setGuestData({});
+        setGuestData({Home:0 , Tuition:0, Travels:0 , EmergencyFund:0, Transportation:0});
         setContentBox([]);
         setAmount("");
         setCategory("");
@@ -134,10 +134,7 @@ const {guestData, setGuestData, dbInfo, setDbInfo, category, setCategory, amount
 //
 //imported the cahrt, called it like a component : it takes many props but we will focus on {data} and {options}
 const MainDiv = styled.div`
-/* .content{
 
-    border: 2px solid red;
-} */
 max-width: 1000px;
 .test2{
     /* border: 1px solid green; */
@@ -211,6 +208,7 @@ h1{
     margin-top: -400px;
     padding: 30px;
     text-align: center;
+   font-family: cursive;
 }
 `
 const Select = styled.select`

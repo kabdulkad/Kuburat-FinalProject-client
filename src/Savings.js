@@ -14,8 +14,8 @@
     
         // const [savingList, setSavingList] = useState("")
         const {user, isAuthenticated, isLoading } =useAuth0()
-        const {userData, setUserData,savingList,setSavingList,resetChart,notes, setNotes, dbInfo, setDbInfo, category, setCategory, amount,setAmount, home , setHome , tuition, setTuition , travels, setTravels , emergencyFund , setEmergencyFund , transportation , setTransportation, contentBox, setContentBox} = useContext(CurrentSavingsContext)
-    // console.log(dbInfo)
+        const {userData, setUserData,savingList,setSavingList,resetChart,notes, setNotes, dbInfo, setDbInfo, category, setCategory, amount,setAmount, contentBox, setContentBox} = useContext(CurrentSavingsContext)
+
     
         //uesr chart for savings info
         
@@ -28,18 +28,18 @@
                         // data: [home, emergencyFund , tuition, travels , transportation],
     
                         backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(64,224,208,0.5)',
+                            'rgba(224, 15, 118, 0.5)',
+                            'rgba(221, 39, 245, 0.5)',
+                            'rgba(255,140,0,0.5)',
+                            'rgba(255,105,180,0.5)',
                         ],
                         borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
+                            'rgba(64,224,208,1)',
+                            'rgba(224, 15, 118, 0.6)',
+                            'rgba(221, 39, 245, 1)',
+                            'rgba(255,140,0,1)',
+                            'rgba(255,105,180,1)',
             
                         ],
                         borderWidth: 1,
@@ -63,9 +63,9 @@
                             let savingsObj={Home:0 , Tuition:0, Travels:0 , EmergencyFund:0, Transportation:0}
                             setSavingList(data.data)
                             data.data.forEach(item => {
-                            //    console.log(item.category)
+                               console.log(item.category)
                             //    console.log(savingsObj[item.category])
-                               savingsObj={...savingsObj, [item.category]: item.amount + savingsObj[item.category] } 
+                            savingsObj={...savingsObj, [item.category]: item.amount + savingsObj[item.category] } 
                             });
                             console.log(savingsObj)
                             setUserData(savingsObj)
@@ -77,15 +77,11 @@
                 
     },[user])
 
-    // console.log(savingList)
-    // console.log(userData)
-
         const handleSubmit = (e) => {                                      //creating a function for the form on submit
             e.preventDefault();    
             // console.log(category,amount)                                 //creating variable that will hold an array which will contain our field inputs(all in one)
     
             const inputData = {category, amount , notes}                          //doing a conditional rendering that states only if all fields are field then print value
-            // console.log(inputData, "tis is our inputdata")
     
             //1st fetch gets all the data populated, 2nd fetch updates amount per category and 3rd fetch populates all previous data
             fetch("/", {
@@ -104,27 +100,13 @@
                 setUserData({...userData, [category]:userData[category] + Number(amount)})
                 console.log(typeof amount)
                 console.log(typeof userData[category])
-    
-            if (category && amount && notes) {
-                // fetch("/categories")
-                // .then((res) => res.json())
-                // .then(data => {setDbInfo(data.data);
-                //     console.log(data.data,"this is 83")
-                //     setHome(data.data[3].amount)
-                //     setEmergencyFund(data.data[2].amount)
-                //     setTuition(data.data[1].amount)
-                //     setTravels(data.data[0].amount)
-                //     setTransportation(data.data[4].amount)
-                // })
-        
-            
-                // setCategory("");                
-                // setAmount("");
-            }
-            // resetChart();
-    
+                console.log(category)
+
         }
     
+        console.log(userData)
+        // console.log(savingList)
+        console.log(contentBox)
         return(
         
             <MainDiv>
@@ -153,7 +135,7 @@
                         <input name="notes" type="text" placeholder="Notes:" className="notesdiv" value={notes} onChange={(e)=>setNotes(e.target.value)}  required></input>
                         <div className="buttons">
                             <button className="formbutton" type="submit">Enter</button>
-                            <button onClick={resetChart} className="formbutton" type="submit">Reset</button>
+                            <button onClick={resetChart} className="formbutton" type="button">Reset</button>
     
                         </div>
     
@@ -161,7 +143,7 @@
     
             
                 <div className="contentNchart">
-    
+                {/* <span className="title1">Previous Savings Data</span> */}
                     <div className="test2">
                     
                         {
@@ -228,7 +210,10 @@
     
         border: 2px solid red;
     } */
-    
+    .title1{
+        color: black;
+        width: 300px;
+    }
     
     .buttons{
         /* border:1px solid pink; */
@@ -238,7 +223,7 @@
     .notesdiv{
         width: 969px;
         height: 60px;
-        border: 3px solid green;
+        border: 3px solid #803453;
     }
     
     .test2{
@@ -270,13 +255,14 @@
     
     .olddata{
     
-        border: 4px solid orange;
+        border: 4px solid #102A49;
         position: relative;
         left: -380px;
         width: 350px;
         top: 100px;
         box-shadow: rgba(0, 0, 0, 0.24) 5px 6px 8px;
         border-radius: 5px;  
+        gap: 50px;
     
     
     
@@ -287,7 +273,7 @@
     
     }
     .newdata{
-        border: 4px solid pink;
+        border: 4px solid #803453;
         position: relative;
         left: 100px;
         width: 350px;
@@ -318,7 +304,7 @@
         flex-direction: row;
     }
     .input{
-        border: 3px solid green;
+        border: 3px solid #803453;
         height: 38px;
         width: 1450px;
     
@@ -333,11 +319,12 @@
         margin-top: -400px;
         padding: 30px;
         text-align: center;
+        font-family: cursive;
     }
     `
     const Select = styled.select`
         height: 46px;
         width: 1450px;
-        border: 3px solid green;
+        border: 3px solid #803453;
     `
     export default Savings

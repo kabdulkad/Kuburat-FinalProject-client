@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-// import {link} from "react-dom"
-import { Link } from "react-router-dom";
+
 
 const Investment = () => {
     const [articles, setArticles] = useState("")
@@ -30,30 +29,37 @@ useEffect(()=> {
         articles && 
 
             <MainDiv >
+                <h1>Checkout today's Latest Financial News!</h1>
                 <div className="articlebox">
                     {
                         articles.map((article)=> {
                             return <div className="articlediv">
-                                        <p className="headline">{article.headline}</p>
-                                        <p className="author">{article.author}</p>
-                                        <p>{article.url}</p>
-                                        <a href={article.url}>Click Here to read more!</a>
-                                        {/* <NavLink></NavLink> */}
 
-                                        { article.images.length>0 &&
-                                        
-                                            <img src={article.images[2].url} alt="content" />
-                                            
-                                            }
+                                            <div>
+                                                <p className="headline">{article.headline}</p>
+                                                <p className="author">Written by:{article.author}</p>
+                                                <a href={article.url} >Click Here to read more!</a>
+                                            </div>
 
-                                        {console.log(article, "this is art")}
+
+                                            <div>
+                                                { article.images.length>0 &&
+                                                
+                                                    <img src={article.images[2].url} alt="content" className="picture"/>
+                                                    
+                                                    }
+                                            </div>
+
+
+
+                                
 
                             </div>
                         })
                     }
                 </div>
             </MainDiv>
-     
+    
 
         
     )
@@ -61,23 +67,42 @@ useEffect(()=> {
 
 
 const MainDiv = styled.div`
+
+h1{
+    padding: 20px;
+    text-align: center;
+}
+.picture{
+    margin-left: 150px;
+    border-radius: 3px;
+    box-shadow: rgba(0, 0, 0, 0.24) 5px 6px 8px;
+}
 .articlebox{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     gap:50px;
+    /* border: 2px solid red; */
+    margin-left: 45px;
 
 }
 .articlediv{
-    border: 1px solid black;
+    border: 3px solid #439aa4;
     width: 550px;
     height: 350px;
+    margin:12px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     .headline{
         font-weight: bold;
+        padding: 5px;
     }
     .author{
         font-style: italic;
         color: plum;
+        padding: 5px;
     }
 
     .url{

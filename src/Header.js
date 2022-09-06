@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { NavLink as Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react"
-
+import { FiDollarSign } from "react-icons/fi";
 
 const Header = () => {
     const { loginWithRedirect } = useAuth0()
@@ -11,21 +11,25 @@ const Header = () => {
     return(
         <MainDiv>
             <HeaderDiv>
-                <h1>LOGO</h1>
+            <FiDollarSign size={40} /><h1>avio</h1>
                 {isAuthenticated ?
-                <>
-                <p>WELCOME {user.name}</p>
-                <button onClick={()=>logout({returnTo:window.location.origin})}>SignOut</button>
-                <NavLink to="/savings" exact>Savings</NavLink>    
-                <NavLink to="/investment" exact>Financial News</NavLink>
+                <div>
+                    <NavLink to="/savings" exact>Savings</NavLink>    
+                    <NavLink to="/investment" exact>Financial News</NavLink>
+                    <button className="click" onClick={()=>logout({returnTo:window.location.origin})}>SignOut</button>
+
+                    <div>
+                        <p className="welcome">Hello, <span className="user">{user.name}</span> </p>
+
+                    </div>
                 
-                </>
+                </div>
 
                 :
                 <>
                 <NavLink to="/" exact>Homepage</NavLink>
 
-                <button onClick={()=>loginWithRedirect()}>SignIn</button>
+                <button className="click" onClick={()=>loginWithRedirect()}>SignIn</button>
 
 
                 </>
@@ -39,11 +43,28 @@ const Header = () => {
 }
 
 const MainDiv = styled.div`
-border: 3px solid #334a33;
+border: 3px solid #102A49;
 width: 100%;
 height: 130px;
-background-color: #a7c2a7;
+background-color:#daa5d5;
+font-family: cursive;
+.click{
+    background-color: transparent;
 
+    font-size: 20px;
+    text-decoration: underline;
+    font-style:italic;
+    margin: 0 3px;
+}
+.user{
+    font-style: italic;
+    font-weight: bold;
+}
+.welcome{
+    padding: 30px;
+    margin-left:60px ;
+
+}
 h1{
     color: black;
     font-size: 25px;
@@ -51,7 +72,9 @@ h1{
     /* border: 3PX solid white; */
     border-radius:10px;
     width: 30px;
-    margin-left: 10px;
+    margin-left: -5px;
+    padding: 0;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 `
 
