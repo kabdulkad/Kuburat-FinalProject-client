@@ -4,10 +4,11 @@ import { useAuth0 } from "@auth0/auth0-react"
 import { FiDollarSign } from "react-icons/fi";
 
 const Header = () => {
+
     const { loginWithRedirect } = useAuth0()
     const { logout} = useAuth0()
-    const {user, isAuthenticated, isLoading } =useAuth0()
-    console.log(user)
+    const {user, isAuthenticated} =useAuth0()
+
     return(
         <MainDiv>
             <HeaderDiv>
@@ -43,11 +44,13 @@ const Header = () => {
 }
 
 const MainDiv = styled.div`
+
 border: 3px solid #102A49;
 width: 100%;
 height: 130px;
 background-color:#daa5d5;
 font-family: cursive;
+
 .click{
     background-color: transparent;
 
@@ -69,7 +72,6 @@ h1{
     color: black;
     font-size: 25px;
     flex: 0.3px;
-    /* border: 3PX solid white; */
     border-radius:10px;
     width: 30px;
     margin-left: -5px;
@@ -89,7 +91,7 @@ const HeaderDiv = styled.div`
 display: flex;
 flex-direction: row;
 justify-content: flex-end;
-align-items:center; //this isn't making the text be in the center of the div
+align-items:center; 
 
 `
 export default Header;

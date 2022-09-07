@@ -12,9 +12,8 @@
     
     const Savings = () => {
     
-        // const [savingList, setSavingList] = useState("")
         const {user, isAuthenticated, isLoading } =useAuth0()
-        const {userData, setUserData,savingList,setSavingList,resetChart,notes, setNotes, dbInfo, setDbInfo, category, setCategory, amount,setAmount, contentBox, setContentBox} = useContext(CurrentSavingsContext)
+        const {userData, setUserData,savingList,setSavingList,resetChart,notes, setNotes, dbInfo, category, setCategory, amount,setAmount, contentBox, setContentBox} = useContext(CurrentSavingsContext)
 
     
         //uesr chart for savings info
@@ -46,7 +45,7 @@
                     },
                     ],
                 };
-    //renders all the previous savings data
+    //the fetch below renders all the previous savings data
     
     useEffect(() =>{
         console.log(user)
@@ -63,11 +62,8 @@
                             let savingsObj={Home:0 , Tuition:0, Travels:0 , EmergencyFund:0, Transportation:0}
                             setSavingList(data.data)
                             data.data.forEach(item => {
-                               console.log(item.category)
-                            //    console.log(savingsObj[item.category])
                             savingsObj={...savingsObj, [item.category]: item.amount + savingsObj[item.category] } 
                             });
-                            console.log(savingsObj)
                             setUserData(savingsObj)
                         })
                         .catch(err => console.log(err))
@@ -77,13 +73,16 @@
                 
     },[user])
 
-        const handleSubmit = (e) => {                                      //creating a function for the form on submit
+     //creating a function for the form on submit
+
+        const handleSubmit = (e) => {                                     
             e.preventDefault();    
-            // console.log(category,amount)                                 //creating variable that will hold an array which will contain our field inputs(all in one)
+            
+            //creating variable that will hold an array which will contain our field inputs(all in one)
     
-            const inputData = {category, amount , notes}                          //doing a conditional rendering that states only if all fields are field then print value
+            const inputData = {category, amount , notes}                     
     
-            //1st fetch gets all the data populated, 2nd fetch updates amount per category and 3rd fetch populates all previous data
+            //fetch gets all the new savings data populated
             fetch("/", {
                 method: "POST",
                 headers: {
@@ -98,15 +97,8 @@
                     return [...content, inputData]
                 })
                 setUserData({...userData, [category]:userData[category] + Number(amount)})
-                console.log(typeof amount)
-                console.log(typeof userData[category])
-                console.log(category)
-
         }
     
-        console.log(userData)
-        // console.log(savingList)
-        console.log(contentBox)
         return(
         
             <MainDiv>
@@ -141,22 +133,24 @@
     
                 </form>
     
-            
+            <div className="titlediv">
+
+                <span className="title1">Previous Savings Data</span> <span className="title2">New Savings Data</span><span className="chart1">Savings Chart</span>
+            </div>
                 <div className="contentNchart">
-                {/* <span className="title1">Previous Savings Data</span> */}
-                    <div className="test2">
+                    <div className="contentbox">
                     
                         {
                             contentBox.map((item)=> {
                                 return(
                                     
-                                    <div className="outerbox">
+                                    
                                         <div className="newdata">
                                             <p className="textbox"><span className="inputtext">Saving category:</span>{item.category}</p>
                                             <p className="textbox"><span className="inputtext">Amount saved:</span>${item.amount}</p>
                                             <p className="textbox"><span className="inputtext">Notes:</span>{item.notes}</p>
                                         </div>
-                                    </div>
+                                    
                                 
                                 )
                             })
@@ -206,32 +200,40 @@
     }
     
     const MainDiv = styled.div`
-    /* .content{
-    
-        border: 2px solid red;
-    } */
+    padding: 460px;
+
     .title1{
-        color: black;
-        width: 300px;
+        margin-left: -20px;
     }
-    
+
+    .title2{
+        margin-left: -230px;
+    }
+    .titlediv{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 1300px;
+        margin-left: -300px;
+        padding: 30px;
+        font-size: 20px;
+        font-style:italic;
+        font-weight:bold;
+    }
     .buttons{
-        /* border:1px solid pink; */
         display: flex;
         justify-content: flex-end;
     }
     .notesdiv{
         width: 969px;
         height: 60px;
-        border: 3px solid #803453;
+        border: 3px solid #803453;;
     }
     
-    .test2{
-        /* border: 1px solid green; */
+    .contentbox{
         position: absolute;
     }
     .contentNchart{
-        /* border: 3px solid red; */
         display: flex;
         flex-direction: row;
     }
@@ -246,13 +248,7 @@
     .inputtext{
         font-weight: bold;
     }
-    .outerbox{
-        /* border: 2px solid purple; */
-        /* position: absolute; */
-    
-    }
-    //these boxes are overlaping when the code below is commented out : fix* use position relative
-    
+
     .olddata{
     
         border: 4px solid #102A49;
@@ -299,7 +295,6 @@
         color: black;
     }
     .formbox{
-        /* border: 10px solid green; */
         display: flex;
         flex-direction: row;
     }
@@ -309,11 +304,7 @@
         width: 1450px;
     
     }
-    /* .dropdown{
-        height: 40px;
-        width: 1450px;
-    } */
-    padding: 460px;
+
     
     h1{
         margin-top: -400px;

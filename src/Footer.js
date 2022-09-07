@@ -7,14 +7,13 @@ const Footer = () => {
         <MainDiv>
 
             <h2>Contact Me</h2>
-            <a href="https://github.com/kabdulkad">
-            <BsGithub size={25} className="icon" />
-                GitHub</a>
+            <a href="https://github.com/kabdulkad"><BsGithub size={25} className="icon" />GitHub</a>
         </MainDiv>
     )
 }
 
 const MainDiv = styled.div`
+
 border:3px solid #102A49;
 background-color:#daa5d5;
 color: black;
@@ -23,8 +22,6 @@ display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
-
-
 
 a{
     font-size: 20px;

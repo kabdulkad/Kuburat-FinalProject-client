@@ -1,23 +1,27 @@
 import { createContext, useEffect, useState } from "react";
 
-
+//creating the context in which values can be used throughout 
 export const CurrentSavingsContext = createContext()
 
 
 
 const CurrentSavingsProvider = ({children}) =>{
 
-    const [category, setCategory] = useState("")       
-    const [amount, setAmount]=useState("")
-    const [dbInfo, setDbInfo] = useState(null)
-    const[notes , setNotes] = useState("")
+//usetate for category input
+const [category, setCategory] = useState("")  
+//usetate for amount input     
+const [amount, setAmount]=useState("")
+//usetate that will fetch all savings data from database
+const [dbInfo, setDbInfo] = useState(null)
+//usetate for notes input
+const[notes , setNotes] = useState("")
 
 
 
-//state when user is NOT signed in
+//usestate when user is NOT signed in
 const [guestData , setGuestData]=useState({Home:0 , Tuition:0, Travels:0 , EmergencyFund:0, Transportation:0})
 
-//userData
+//state when user IS signed in
 
 const [userData , setUserData]=useState({Home:0 , Tuition:0, Travels:0 , EmergencyFund:0, Transportation:0})
 
@@ -36,7 +40,6 @@ const getData = () => {
         .then((res) => res.json())
         .then(data => {setDbInfo(data.data);
             console.log(data.data)
-            console.log("hello I've been triggered")
         })
 
 
@@ -44,6 +47,8 @@ const getData = () => {
 useEffect((getData),[]) 
 //calling getdata func inside 
 
+//Function that will allow user to reset savings info : chart and savings content boxes
+//patch used to update and delete data from the BE directly
 const resetChart = () => {
     
     console.log("hi")
@@ -61,11 +66,8 @@ const resetChart = () => {
             setSavingList("")
         })
         .catch((err) => err) 
-            // getData()
-        // reseting just making the chart disappear but the data isnt resetting to 0
+
 }
-console.log(savingList)
-console.log(contentBox)
 
     return(
 

@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import styled from "styled-components";
 import {Doughnut} from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend,  } from 'chart.js';
@@ -8,7 +8,7 @@ ChartJS.register(ArcElement, Tooltip, Legend );
 
 const Homepage = () => {
 
-const {guestData, setGuestData, dbInfo, setDbInfo, category, setCategory, amount,setAmount, contentBox, setContentBox} = useContext(CurrentSavingsContext)
+const {guestData, setGuestData, dbInfo, category, setCategory, amount,setAmount, contentBox, setContentBox} = useContext(CurrentSavingsContext)
 
         
         let savingsChart = {
@@ -44,31 +44,26 @@ const {guestData, setGuestData, dbInfo, setDbInfo, category, setCategory, amount
     //creating a function for the form on submit
     const handleSubmit = (e) => {                                      
         e.preventDefault();     
-        console.log(typeof Number(amount))                                 //creating variable that will hold an array which will contain our field inputs(all in one)
-        console.log(typeof guestData[category])
-                             //doing a conditional rendering that states only if all fields are field then print value
-        // console.log(inputData, "tis is our inputdata")
 
-//key is a variable out []
+//key is a variable, put []  ...spread to return what was originally inputted + new content 
         setGuestData({...guestData, [category]:Number(amount) + guestData[category]})
-                                                     //spread to return what was originally inputted + new content  
+                                        
     
-                                                            //resetting the inputs to empty "" once values are submitted 
+                                                            
             const inputData = {category, amount}   
             setContentBox((content) => {
                 return [...content, inputData]
-
             }) 
     }
 //resetting data on click
+//resetting the inputs to empty "" once values are submitted 
     const resetData = () => {
         setGuestData({Home:0 , Tuition:0, Travels:0 , EmergencyFund:0, Transportation:0});
         setContentBox([]);
         setAmount("");
         setCategory("");
     }
-// console.log(category)
-//    console.log(contentBox, "this is our content")
+
 
     return(
         <MainDiv>
@@ -93,21 +88,25 @@ const {guestData, setGuestData, dbInfo, setDbInfo, category, setCategory, amount
                         <button onClick={resetData} className="formbutton" type="button">Reset</button>
                     </div>
                 </form>
+        
+                <div className="titlediv">
+                    <span className="title1">Savings Data</span><span className="chart1">Savings Chart</span>
+                </div>
 
 
                 <div className="contentNchart">
 
-                    <div className="test2">
+                    <div className="contentbox">
                         {
                             contentBox.map((item)=> {
                                 return(
 
-                                    <div className="outerbox">
+                                
                                         <div className="innerbox">
                                             <p className="textbox"><span className="inputtext">Saving category:</span>{item.category}</p>
                                             <p className="textbox"><span className="inputtext">Amount saved:</span>${item.amount}</p>
                                         </div>
-                                    </div>
+                                
                                     
                                 )
                             })
@@ -131,19 +130,33 @@ const {guestData, setGuestData, dbInfo, setDbInfo, category, setCategory, amount
     )
 }
 
-//
-//imported the cahrt, called it like a component : it takes many props but we will focus on {data} and {options}
+
+//imported the chart, called it like a component : it takes many props but we will focus on {data}
 const MainDiv = styled.div`
 
 max-width: 1000px;
-.test2{
-    /* border: 1px solid green; */
+padding: 460px;
+
+.title1{
+        margin-left: 35px;
+    }
+
+
+.titlediv{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 1100px;
+        margin-left: -300px;
+        padding: 60px;
+        font-size: 20px;
+        font-style:italic;
+        font-weight:bold;
+}
+.contentbox{
     position: absolute;
 }
-.contentNchart{
-    /* border: 3px solid red; */
-    /* display: flex; */
-}
+
 .chart{
     position: relative;
     width: 800px;
@@ -155,12 +168,7 @@ max-width: 1000px;
 .inputtext{
     font-weight: bold;
 }
-.outerbox{
-    /* border: 2px solid purple; */
-    /* position: absolute; */
 
-}
-//these boxes are overlaping when the code below is commented out : fix* use position relative
 .innerbox{
     border: 2px solid green;
     position: relative;
@@ -181,34 +189,29 @@ max-width: 1000px;
     height: 42px;
     display: flex;
     justify-content: flex-end;
-    /* width: 1460px; */
     border: 1px solid green;
     padding: 10px;
     cursor: pointer;
 
 }
 .formbox{
-    /* border: 10px solid green; */
+
     display: flex;
     flex-direction: row;
 }
 .input{
-    /* border: 1px solid black; */
+
     height: 35px;
     width: 1450px;
     
 }
-/* .dropdown{
-    height: 40px;
-    width: 1450px;
-} */
-padding: 460px;
+
 
 h1{
     margin-top: -400px;
     padding: 30px;
     text-align: center;
-   font-family: cursive;
+    font-family: cursive;
 }
 `
 const Select = styled.select`

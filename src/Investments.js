@@ -3,10 +3,12 @@ import styled from "styled-components";
 
 
 const Investment = () => {
-    const [articles, setArticles] = useState("")
-    const URL = "https://data.alpaca.markets/v1beta1/news?start=2021-12-28T00:00:00Z&end=2021-12-31T11:59:59Z&symbols=AAPL,TSLA"
 
+//setting usestate for the API, storing url in a variable for cleaner code
+const [articles, setArticles] = useState("")
+const URL = "https://data.alpaca.markets/v1beta1/news?start=2021-12-28T00:00:00Z&end=2021-12-31T11:59:59Z&symbols=AAPL,TSLA"
 
+//setting up api Keys
 const options = {
 	method: 'GET',
 	headers: {
@@ -14,11 +16,13 @@ const options = {
 		'Apca-Api-Secret-Key': 'MNmbdQxtd4KY84GcnhQDmk6Dtwx6hnAcN9RIlyZg'
 	}
 };
+
+//fetching news data
 useEffect(()=> {
     fetch(`${URL}`, options)
         .then(response => response.json())
         .then(data => setArticles(data.news))
-        .then(data => console.log(data,"this is data"))
+        // .then(data => console.log(data,"this is data"))
         .catch(err => console.error(err));
 
 
@@ -82,7 +86,6 @@ h1{
     flex-direction: row;
     flex-wrap: wrap;
     gap:50px;
-    /* border: 2px solid red; */
     margin-left: 45px;
 
 }

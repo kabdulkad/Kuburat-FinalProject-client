@@ -6,9 +6,7 @@ import Investment from "./Investments";
 import Savings from "./Savings";
 import Header from "./Header";
 import Footer from "./Footer";
-import { useEffect } from "react";
 
-//test3
 
 const App = () => {
   
